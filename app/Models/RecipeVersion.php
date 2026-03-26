@@ -7,16 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\BelongsToOrganisation;
 
 class RecipeVersion extends Model
 {
     /** @use HasFactory<\Database\Factories\RecipeVersionFactory> */
     use HasFactory;
+    use BelongsToOrganisation;
 
     public $timestamps = false;
 
     protected $fillable = [
         "recipe_id",
+        "organisation_id",
         "version",
         "name",
         "description",

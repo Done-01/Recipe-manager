@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create("recipe_versions", function (Blueprint $table) {
             $table->id();
+            $table->foreignId("organisation_id")->constrained("organisations");
             $table->foreignId("recipe_id")->constrained("recipes");
             $table->string("version");
             $table->string("name");

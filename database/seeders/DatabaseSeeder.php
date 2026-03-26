@@ -347,15 +347,13 @@ class DatabaseSeeder extends Seeder
                         // 0–3 allergens per spec, with ~25% chance any one is trace-only
                         $allergenCount = min(rand(0, 3), $allergens->count());
                         if ($allergenCount > 0) {
-                            $allergens
-                                ->random($allergenCount)
-                                ->each(
-                                    fn(Allergen $allergen) => $spec
-                                        ->allergens()
-                                        ->attach($allergen->id, [
-                                            "is_trace" => fake()->boolean(25),
-                                        ]),
-                                );
+                            $allergens->random($allergenCount)->each(
+                                fn(Allergen $allergen) => $spec
+                                    ->allergens()
+                                    ->attach($allergen->id, [
+                                        "is_trace" => fake()->boolean(25),
+                                    ]),
+                            );
                         }
 
                         // 2–4 committed deliveries for this spec
@@ -393,17 +391,29 @@ class DatabaseSeeder extends Seeder
             ]);
 
             // Committed live version
-            $currentVersion = RecipeVersion::factory()->create([
-                "recipe_id" => $recipe->id,
-                "version" => "1.0",
-                "name" => $recipe->name,
-                "status" => "current",
-                "unit_id" => $units["g"]->id,
-                "created_by" => $admin->id,
-                "commited_by" => $admin->id,
-                "commited_at" => now()->subMonths(rand(1, 6)),
-            ]);
+            $currentVersion = RecipeVersion::factory()
+                ->forRecipe($recipe)
+                ->create([
+                    "version" => "1.0",
+                    "status" => "current",
+                    "unit_id" => $units["g"]->id,
+                    "commited_by" => $admin->id,
+                    "commited_at" => now()->subMonths(
+                        fake()->numberBetween(1, 6),
+                    ),
+                ]);
 
+            // 50% chance a revised draft is in progress
+            if (fake()->boolean(50)) {
+                RecipeVersion::factory()
+                    ->forRecipe($recipe)
+                    ->draft()
+                    ->create([
+                        "version" => "2.0",
+                        "unit_id" => $units["g"]->id,
+                        "changelog" => "Updated formulation — in progress.",
+                    ]);
+            }
             if ($allSpecs->isNotEmpty()) {
                 $this->attachIngredientsToVersion(
                     $currentVersion,
@@ -412,26 +422,7 @@ class DatabaseSeeder extends Seeder
                 );
             }
 
-            // 50% chance a revised draft is in progress
-            if (fake()->boolean(50)) {
-                RecipeVersion::factory()
-                    ->draft()
-                    ->create([
-                        "recipe_id" => $recipe->id,
-                        "version" => "2.0",
-                        "name" => $recipe->name,
-                        "unit_id" => $units["g"]->id,
-                        "created_by" => $admin->id,
-                        "changelog" => "Updated formulation — in progress.",
-                    ]);
-            }
-
-            $this->seedProductionRuns(
-                $org,
-                $currentVersion,
-                $orgDeliveries,
-                $units,
-            );
+            $this->seedProductionRuns($currentVersion, $orgDeliveries, $units);
         }
     }
 
@@ -479,14 +470,13 @@ class DatabaseSeeder extends Seeder
      * Pivot data is keyed by delivery ID to prevent duplicate rows.
      */
     private function seedProductionRuns(
-        Organisation $org,
         RecipeVersion $version,
         Collection $orgDeliveries,
         array $units,
     ): void {
-        ProductionRun::factory(rand(2, 3))
+        ProductionRun::factory(fake()->numberBetween(2, 3))
             ->create([
-                "organisation_id" => $org->id,
+                "organisation_id" => $version->organisation_id,
                 "recipe_version_id" => $version->id,
                 "unit_id" => $units["kg"]->id,
             ])
@@ -494,9 +484,10 @@ class DatabaseSeeder extends Seeder
                 if ($orgDeliveries->isEmpty()) {
                     return;
                 }
-
-                $count = min(rand(2, 4), $orgDeliveries->count());
-
+                $count = min(
+                    fake()->numberBetween(2, 4),
+                    $orgDeliveries->count(),
+                );
                 $run->deliveries()->attach(
                     $orgDeliveries
                         ->shuffle()

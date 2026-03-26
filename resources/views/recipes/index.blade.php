@@ -8,7 +8,7 @@
             @foreach ($recipes as $recipe)
                 <div class="bg-white rounded-lg shadow-md p-4">
                     <h2 class="text-xl font-bold mb-2">{{ $recipe->name }}</h2>
-                    <a href="{{ route('recipes.show', $recipe) }}" class="text-purple-600 hover:text-purple-800 font-medium">View Recipe</a>
+                    <a href="{{ route('recipes.recipe_versions.index', $recipe) }}" class="text-purple-600 hover:text-purple-800 font-medium">View Recipe</a>
                 </div>
             @endforeach
         </div>
