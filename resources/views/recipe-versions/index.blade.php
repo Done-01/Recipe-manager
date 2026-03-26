@@ -2,6 +2,7 @@
 <html>
 <body>
     <h1>Recipe Versions</h1>
+    <a href="{{ route('recipes.recipe-versions.create', $recipe) }}">Create</a>
     <p>{{ $recipeVersions->count() }} records</p>
     <table border="1" cellpadding="6" cellspacing="0">
         <thead>
