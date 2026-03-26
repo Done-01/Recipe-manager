@@ -1,27 +1,25 @@
 <x-layout>
-    <div class="min-h-screen w-full flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-lg shadow-md">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Organisations
-            </h2>
+    <div class="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">Organisation</p>
+        <h2 class="mt-3 text-3xl font-semibold text-slate-900">Choose your workspace</h2>
+        <p class="mt-2 text-sm text-slate-600">Select the organisation you want to work in.</p>
             @if (session('message'))
-                <div class="mt-4 text-center text-sm text-green-600">
+                <div class="mt-6 rounded-2xl bg-emerald-50 px-4 py-3 text-center text-sm text-emerald-700">
                     {{ session('message') }}
                 </div>
             @endif
             <form class="mt-8 space-y-6" action="{{ route("organisations.select") }}" method="post">
                 @csrf
             @foreach ($organisations as $organisation)
-                <div class="flex items-center mb-2">
-                    <input type="radio" name="organisation" value="{{ $organisation->id }}" class="focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300">
-                    <label for="organisation-{{ $organisation->id }}" class="ml-2 block text-sm font-medium text-gray-700">{{ $organisation->organisation_name }}</label>
+                <div class="flex items-center rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <input id="organisation-{{ $organisation->id }}" type="radio" name="organisation" value="{{ $organisation->id }}" class="h-4 w-4 border-slate-300 text-teal-500 focus:ring-teal-400">
+                    <label for="organisation-{{ $organisation->id }}" class="ml-3 block text-sm font-medium text-slate-700">{{ $organisation->organisation_name }}</label>
                 </div>
             @endforeach
-            <div class="mt-6">
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Select</button>
-                <a href="{{ route('organisations.create') }}" class="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Create Organisation</a>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                <button type="submit" class="flex w-full justify-center rounded-2xl bg-teal-500 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-teal-600">Select</button>
+                <a href="{{ route('organisations.create') }}" class="flex w-full justify-center rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-medium text-teal-700 transition hover:bg-teal-100">Create Organisation</a>
             </div>
             </form>
         </div>
-    </div>
 </x-layout>

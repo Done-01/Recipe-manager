@@ -1,10 +1,12 @@
 <x-guest>
-    <div class="min-h-screen flex items-center justify-center bg-purple-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-lg shadow-md text-center">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Welcome!
-            </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">Please <a href="{{ route('login') }}" class="text-purple-600 hover:text-purple-800 font-medium">log in</a> or <a href="{{ route('register') }}" class="text-purple-600 hover:text-purple-800 font-medium">register</a> to continue.</p>
+    <div class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-400 shadow-sm">
+            <div class="h-6 w-6 rounded-full bg-amber-300"></div>
         </div>
+        <h2 class="mt-6 text-3xl font-semibold text-slate-900">Welcome to STEVIE</h2>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+            Please <a href="{{ route('login') }}" class="font-medium text-teal-600 hover:text-teal-700">log in</a> or
+            <a href="{{ route('register') }}" class="font-medium text-teal-600 hover:text-teal-700">register</a> to continue.
+        </p>
     </div>
 </x-guest>
