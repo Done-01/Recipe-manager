@@ -1,6 +1,7 @@
 <x-layout>
     <div class="p-8">
         <h1 class="text-3xl font-bold mb-4">Create Recipe Version</h1>
+        <div class="w-1/2">
         <form action="{{ route('recipes.recipe-versions.store', $recipe->id) }}" method="POST">
             @csrf
             <div class="bg-white rounded-lg shadow-md p-4">
@@ -48,6 +49,7 @@
                     </ul>
                 @endif
             </div>
+        </div>
         </form>
     </div>
 </x-layout>
