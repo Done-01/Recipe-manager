@@ -29,6 +29,7 @@ class RecipeVersion extends Model
         "unit_id",
         "changelog",
         "created_by",
+        "created_at",
         "commited_by",
         "commited_at",
         "superseded_by",
