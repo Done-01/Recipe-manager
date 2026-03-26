@@ -17,7 +17,7 @@ class RecipeVersionController extends Controller
             ->get();
 
         return view(
-            "recipe_versions.index",
+            "recipe-versions.index",
             compact("recipe", "recipeVersions"),
         );
     }

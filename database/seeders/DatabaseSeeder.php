@@ -119,7 +119,7 @@ class DatabaseSeeder extends Seeder
                 "organisation_id" => $org->id,
                 "recipe_id" => fn() => \App\Models\Recipe::factory()->create([
                     "organisation_id" => $org->id,
-                    "category" => $recipeCategories->random()->id, // Corrected from recipe_category_id
+                    "recipe_category_id" => $recipeCategories->random()->id, // Corrected from recipe_category_id
                 ]),
             ]);
     }

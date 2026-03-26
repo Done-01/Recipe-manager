@@ -14,7 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->string("name");
             $table->foreignId("organisation_id")->constrained("organisations");
-            $table->foreignId("category")->constrained("recipe_categories");
+            $table
+                ->foreignId("recipe_category_id")
+                ->nullable()
+                ->constrained("recipe_categories");
             $table->foreignId("created_by")->constrained("users");
             $table->foreignId("updated_by")->nullable()->constrained("users");
             $table->foreignId("deleted_by")->nullable()->constrained("users");

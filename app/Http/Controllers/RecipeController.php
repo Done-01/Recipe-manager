@@ -30,12 +30,19 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "name" => "required|string|max:255",
-            "description" => "required|string",
-            "instructions" => "required|string",
+            "name" => "required|string|max:255|min:3",
         ]);
 
-        auth()->user()->currentOrganisation()->recipes()->create($validated);
+        auth()
+            ->user()
+            ->currentOrganisation()
+            ->recipes()
+            ->create([
+                "organisation_id" => auth()->user()->currentOrganisation()->id,
+                "name" => $validated["name"],
+                "created_by" => auth()->user()->id,
+                "created_at" => now(),
+            ]);
 
         return redirect()->route("recipes.index");
     }

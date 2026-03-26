@@ -17,6 +17,7 @@ class RecipeCategory extends Model
 
     protected $fillable = [
         "name",
+        "recipe_category_id",
         "organisation_id",
         "created_by",
         "updated_by",

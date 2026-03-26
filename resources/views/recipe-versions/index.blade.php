@@ -20,6 +20,7 @@
         </thead>
         <tbody>
             @foreach($recipeVersions as $version)
+                <a href="{{ route('recipes.recipe-versions.index', $version) }}"></a>
                 <tr>
                     <td>{{ $version->id }}</td>
                     <td>{{ $version->recipe?->name ?? '—' }}</td>

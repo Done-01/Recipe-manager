@@ -61,7 +61,7 @@ class RecipeFactory extends Factory
         return [
             "name" => fake()->randomElement(self::$recipes),
             "organisation_id" => Organisation::factory(),
-            "category" => RecipeCategory::factory(), // Corrected from recipe_category_id
+            "recipe_category_id" => RecipeCategory::factory(), // Corrected from recipe_category_id
             "created_by" => User::factory(),
         ];
     }
