@@ -5,7 +5,7 @@
     <title>{{ $title ?? 'My App' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="text-gray-900 font-sans flex flex-col min-h-screen">
+<body class="text-gray-900 font-sans flex flex-col min-h-screen w-full">
     <nav class="bg-purple-800 p-4 text-white flex justify-between items-center w-full">
         <div class="flex space-x-4 items-top">
             @if (session('active_organisation'))
