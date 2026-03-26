@@ -1,4 +1,4 @@
-<x-guest>
+<x-layouts.guest>
     <x-slot:title>Log In</x-slot:title>
 
     <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -31,15 +31,7 @@
             <p>Don't have an account? <a href="{{ route('register') }}" class="text-purple-600 hover:text-purple-800 font-medium">Register</a></p>
         </div>
         <div class="mt-4 text-sm text-red-600">
-            @if ($errors->any())
-                <ul class="list-disc list-inside">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-        </div>
-            </form>
+            <x-form.error />
         </div>
     </div>
-</x-guest>
+</x-layouts.guest>

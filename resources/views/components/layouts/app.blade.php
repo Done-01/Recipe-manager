@@ -9,16 +9,17 @@
     <nav class="bg-purple-800 p-4 text-white flex justify-between items-center w-full">
         <div class="flex space-x-4 items-top">
             @if (session('active_organisation'))
-                <x-nav-link href="/dashboard">Dashboard</x-nav-link>
-                <x-nav-link href="/organisations">Organisations</x-nav-link>
-                <x-nav-link href="/recipes">Recipes</x-nav-link>
+                <x-ui.nav-link href="/dashboard">Dashboard</x-ui.nav-link>
+                <x-ui.nav-link href="/organisations">Organisations</x-ui.nav-link>
+                <x-ui.nav-link href="/recipes">Recipes</x-ui.nav-link>
+                <x-ui.nav-link href="/ingredients">Ingredients</x-ui.nav-link>
             @endif
         </div>
         <div>
             @if (auth()->check())
-                <x-nav-link href="logout">Logout</x-nav-link>
+                <x-ui.nav-link href="logout">Logout</x-nav-link>
                 @else
-                    <x-nav-link href="/login">Login</x-nav-link>
+                    <x-ui.nav-link href="/login">Login</x-nav-link>
                 @endif
         </div>
     </nav>

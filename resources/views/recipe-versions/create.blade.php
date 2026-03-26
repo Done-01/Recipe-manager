@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <div class="p-8">
         <h1 class="text-3xl font-bold mb-4">Create Recipe Version</h1>
         <div class="w-1/2">
@@ -52,4 +52,4 @@
         </div>
         </form>
     </div>
-</x-layout>
+</x-layouts.app>

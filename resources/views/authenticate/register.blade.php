@@ -1,4 +1,4 @@
-<x-guest>
+<x-layouts.guest>
     <x-slot:title>Register</x-slot:title>
 
     <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -36,4 +36,4 @@
             </form>
         </div>
     </div>
-</x-guest>
+</x-layouts.guest>

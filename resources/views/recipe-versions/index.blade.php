@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-<body>
+<x-layouts.app>
     <h1>Recipe Versions</h1>
     <a href="{{ route('recipes.recipe-versions.create', $recipe) }}">Create</a>
     <p>{{ $recipeVersions->count() }} records</p>
@@ -39,5 +37,4 @@
     </table>
     <br>
     <a href="{{ url('/') }}">← Back</a>
-</body>
-</html>
+</x-layouts.app>

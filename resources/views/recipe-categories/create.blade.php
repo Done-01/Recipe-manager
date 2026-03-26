@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html>
-<body>
+<x-layouts.app>
     <h1>Create Recipe Category</h1>
     @if ($errors->any())
         <div>
@@ -25,5 +23,4 @@
             <button type="submit">Create Recipe Category</button>
         </div>
     </form>
-</body>
-</html>
+</x-layouts.app>
