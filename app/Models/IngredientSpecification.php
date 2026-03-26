@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\BelongsToOrganisation;
 
 class IngredientSpecification extends Model
 {
     /** @use HasFactory<\Database\Factories\IngredientSpecificationFactory> */
     use HasFactory;
+    use BelongsToOrganisation;
 
     public $timestamps = false;
 

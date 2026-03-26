@@ -44,11 +44,11 @@ Route::middleware(["auth", "setup.org"])->group(function () {
     Route::get("/dashboard", function () {
         return view("dashboard");
     });
-    Route::resource("recipes", \App\Http\Controllers\RecipeController::class);
-    Route::resource(
-        "recipes.recipe_versions",
-        \App\Http\Controllers\RecipeVersionController::class,
-    );
+    Route::Resource("recipes.recipe_versions", \App\Http\Controllers\RecipeController::class);
+    Route::resource('recipe-categories', \App\Http\Controllers\RecipeCategoryController::class);
+    Route::resource('ingredient-specifications', \App\Http\Controllers\IngredientSpecificationController::class);
+    Route::resource('ingredients', \App\Http\Controllers\IngredientController::class);
+    Route::resource('nutrition-profiles', \App\Http\Controllers\NutritionProfileController::class);
 });
 
 Route::post("/login", [

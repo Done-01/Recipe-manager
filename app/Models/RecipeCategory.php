@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\BelongsToOrganisation;
 
 class RecipeCategory extends Model
 {
     /** @use HasFactory<\Database\Factories\RecipeCategoryFactory> */
     use HasFactory, SoftDeletes;
+    use BelongsToOrganisation;
 
     protected $fillable = [
         "name",
