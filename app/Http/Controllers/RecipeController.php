@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -11,7 +12,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes = auth()->user()->organisations->flatMap->recipes;
+        $recipes = auth()->user()->currentOrganisation()->recipes;
         return view("recipes.index", compact("recipes"));
     }
 
@@ -20,7 +21,7 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        //
+        return view("recipes.create");
     }
 
     /**
@@ -28,38 +29,56 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "name" => "required|string|max:255",
+            "description" => "required|string",
+            "instructions" => "required|string",
+        ]);
+
+        auth()->user()->currentOrganisation()->recipes()->create($validated);
+
+        return redirect()->route("recipes.index");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Recipe $recipe)
     {
-        //
+        return view("recipes.show", compact("recipe"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Recipe $recipe)
     {
-        //
+        return view("recipes.edit", compact("recipe"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Recipe $recipe)
     {
-        //
+        $validated = $request->validate([
+            "name" => "required|string|max:255",
+            "description" => "required|string",
+            "instructions" => "required|string",
+        ]);
+
+        $recipe->update($validated);
+
+        return redirect()->route("recipes.index");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Recipe $recipe)
     {
-        //
+        $recipe->delete();
+
+        return redirect()->route("recipes.index");
     }
 }

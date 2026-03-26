@@ -27,6 +27,8 @@ class EnsureOrganisationSelected
         }
 
         // More than 1? Force them to pick.
-        return redirect()->route("organisations.index");
+        return redirect()
+            ->route("organisations.index")
+            ->with("message", "Please select an organisation to continue.");
     }
 }

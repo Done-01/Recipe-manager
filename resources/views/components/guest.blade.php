@@ -5,8 +5,8 @@
     <title>{{ $title ?? 'My App' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <main>
+<body classs=''>
+    <main class="">
         {{ $slot }}
     </main>
 </body>

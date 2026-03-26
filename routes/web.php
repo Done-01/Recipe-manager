@@ -6,9 +6,9 @@ use App\Models\Organisation;
 use App\Models\User;
 
 // login and logout
-Route::post("/login", [
+Route::get("/login", [
     \App\Http\Controllers\LoginController::class,
-    "authenticate",
+    "showLoginForm",
 ])->name("login");
 
 Route::get("/logout", [
@@ -22,11 +22,10 @@ Route::post("/logout", [
 ])->name("logout");
 
 Route::get("/", function () {
+    if (auth()->check()) {
+        return redirect("/dashboard");
+    }
     return view("welcome");
-});
-
-Route::get("/onboarding", function () {
-    return view("onboarding");
 });
 
 // organisation routes wrapped in auth middleware
@@ -48,6 +47,16 @@ Route::middleware(["auth", "setup.org"])->group(function () {
     Route::Resource("recipes", \App\Http\Controllers\RecipeController::class);
 });
 
-Route::get("/login", function () {
-    return view("authenticate.login");
-});
+Route::post("/login", [
+    \App\Http\Controllers\LoginController::class,
+    "authenticate",
+]);
+
+Route::get("/register", [
+    \App\Http\Controllers\RegisterController::class,
+    "create",
+])->name("register");
+Route::post("/register", [
+    \App\Http\Controllers\RegisterController::class,
+    "store",
+]);

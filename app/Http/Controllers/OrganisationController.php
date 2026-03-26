@@ -53,7 +53,7 @@ class OrganisationController extends Controller
 
         session(["active_organisation" => $organisation->id]);
 
-        return redirect()->route("organisations.index");
+        return redirect("/dashboard");
     }
 
     public function select(Request $request)
