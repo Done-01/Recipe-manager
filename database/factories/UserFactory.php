@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Organisation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -25,11 +26,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            "name" => fake()->name(),
+            "email" => fake()->unique()->safeEmail(),
+            "email_verified_at" => now(),
+            "password" => (static::$password ??= Hash::make("password")),
+            "remember_token" => Str::random(10),
         ];
     }
 
@@ -38,8 +39,25 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(
+            fn(array $attributes) => [
+                "email_verified_at" => null,
+            ],
+        );
+    }
+
+    public function withOrganisations(array|int $organisations): static
+    {
+        return $this->afterCreating(function (User $user) use ($organisations) {
+            $organisations = is_array($organisations)
+                ? $organisations
+                : Organisation::factory($organisations)->create();
+
+            foreach ($organisations as $organisation) {
+                $user
+                    ->organisations()
+                    ->attach($organisation->id, ["created_by" => $user->id]);
+            }
+        });
     }
 }
