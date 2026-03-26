@@ -2,11 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Allergen;
 use App\Models\Ingredient;
 use App\Models\IngredientSpecification;
 use App\Models\NutritionProfile;
 use App\Models\Organisation;
 use App\Models\Supplier;
+use App\Models\Unit; // Import Unit model
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,7 +26,7 @@ class IngredientSpecificationFactory extends Factory
             "nutrition_profile" => NutritionProfile::factory()->committed(),
             "cost_per_item" => fake()->numberBetween(50, 5000), // stored in pence
             "item_size" => fake()->randomFloat(2, 0.1, 25),
-            "unit_id" => null,
+            "unit_id" => Unit::inRandomOrder()->first()->id, // Select an existing Unit randomly
             "created_by" => User::factory(),
             "created_at" => fake()->dateTimeBetween("-1 year", "-1 month"),
             "commited_by" => null,
@@ -77,5 +79,20 @@ class IngredientSpecificationFactory extends Factory
                 "retired_by" => User::factory(),
             ],
         );
+    }
+
+    public function withAllergens(array|int $allergens): static
+    {
+        return $this->afterCreating(function (
+            IngredientSpecification $spec,
+        ) use ($allergens) {
+            $allergens = is_array($allergens)
+                ? $allergens
+                : Allergen::factory($allergens)->create([
+                    "organisation_id" => $spec->organisation_id,
+                ]);
+
+            $spec->allergens()->attach($allergens);
+        });
     }
 }

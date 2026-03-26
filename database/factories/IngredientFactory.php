@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Ingredient;
+use App\Models\IngredientSpecification;
 use App\Models\Organisation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -139,5 +140,21 @@ class IngredientFactory extends Factory
             "organisation_id" => Organisation::factory(),
             "created_by" => User::factory(),
         ];
+    }
+
+    public function withSpecifications(array|int $specifications): static
+    {
+        return $this->afterCreating(function (Ingredient $ingredient) use (
+            $specifications,
+        ) {
+            $specifications = is_array($specifications)
+                ? $specifications
+                : IngredientSpecification::factory($specifications)->create([
+                    "ingredient_id" => $ingredient->id,
+                    "organisation_id" => $ingredient->organisation_id,
+                ]);
+
+            $ingredient->specifications()->saveMany($specifications);
+        });
     }
 }
