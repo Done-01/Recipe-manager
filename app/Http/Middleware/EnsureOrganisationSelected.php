@@ -8,12 +8,26 @@ class EnsureOrganisationSelected
 {
     public function handle(Request $request, Closure $next)
     {
-        // If already set, keep moving
+        $user = auth()->user();
+
         if (session()->has("active_organisation")) {
+            // Re-validate membership on every request, not just first time
+            $orgId = session("active_organisation");
+            $isMember = $user
+                ->organisations()
+                ->where("organisation_id", $orgId)
+                ->exists();
+
+            if (!$isMember) {
+                session()->forget("active_organisation");
+                return redirect()
+                    ->route("organisations.index")
+                    ->with("error", "Organisation access denied.");
+            }
+
             return $next($request);
         }
 
-        $user = auth()->user();
         $count = $user->organisations()->count();
 
         if ($count === 0) {
@@ -26,7 +40,6 @@ class EnsureOrganisationSelected
             return $next($request);
         }
 
-        // More than 1? Force them to pick.
         return redirect()
             ->route("organisations.index")
             ->with("message", "Please select an organisation to continue.");

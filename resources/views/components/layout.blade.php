@@ -22,7 +22,6 @@
                 @endif
         </div>
     </nav>
-
     <main class="w-full mx-auto">
         {{ $slot }}
     </main>
