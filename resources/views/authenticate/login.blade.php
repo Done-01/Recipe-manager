@@ -10,6 +10,7 @@
                 <x-forms.input name="password" label="Password" type="password" />
             </div>
                 <x-forms.error />
+                <div class="flex flex-col items-center">
                 <x-ui.button variant="dark" type="submit">Log In</x-ui.button>
                 <a href="{{ route('register') }}" class="mt-4 inline-block text-sm text-gray-600 hover:text-gray-900">
                     Register
