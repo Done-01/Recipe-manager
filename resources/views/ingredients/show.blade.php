@@ -3,6 +3,8 @@
         <h1 class="text-3xl font-bold mb-4">{{ $ingredient->name }}</h1>
         <div class="bg-white rounded-lg shadow-md p-4">
             <h2 class="text-xl font-bold mb-2">Details</h2>
+            <p><strong>Description:</strong> {{ $recipe->description }}</p>
+            <p><strong>Instructions:</strong> {{ $recipe->instructions }}</p>
             <div class="mt-4">
                 <a href="{{ route('recipes.edit', $recipe) }}" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Edit Recipe</a>
             </div>
