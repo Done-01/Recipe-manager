@@ -1,6 +1,6 @@
 <x-layouts.app>
     <div class="p-8">
-        <h1 class="text-3xl font-bold mb-4">{{ $recipe->name }}</h1>
+        <h1 class="text-3xl font-bold mb-4">{{ $ingredient->name }}</h1>
         <div class="bg-white rounded-lg shadow-md p-4">
             <h2 class="text-xl font-bold mb-2">Details</h2>
             <p><strong>Description:</strong> {{ $recipe->description }}</p>

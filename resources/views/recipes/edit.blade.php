@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <div class="p-8">
         <h1 class="text-3xl font-bold mb-4">Edit Recipe</h1>
         <form action="{{ route('recipes.update', $recipe) }}" method="POST">
@@ -23,4 +23,4 @@
             </div>
         </form>
     </div>
-</x-layout>
+</x-layouts.app>

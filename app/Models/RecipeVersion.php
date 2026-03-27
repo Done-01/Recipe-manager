@@ -29,6 +29,7 @@ class RecipeVersion extends Model
         "unit_id",
         "changelog",
         "created_by",
+        "created_at",
         "commited_by",
         "commited_at",
         "superseded_by",
@@ -92,5 +93,10 @@ class RecipeVersion extends Model
     public function productionRuns(): HasMany
     {
         return $this->hasMany(ProductionRun::class, "recipe_version_id");
+    }
+
+    public function recipeIngredients(): HasMany
+    {
+        return $this->hasMany(RecipeIngredient::class, "recipe_version_id");
     }
 }

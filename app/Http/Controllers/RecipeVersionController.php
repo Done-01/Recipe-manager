@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RecipeVersion;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Unit;
 
 class RecipeVersionController extends Controller
 {
@@ -22,19 +23,39 @@ class RecipeVersionController extends Controller
         );
     }
 
-    public function create()
+    public function create(Recipe $recipe)
     {
-        // }
+        $units = Unit::all();
+        return view("recipe-versions.create", compact("recipe", "units"));
+    }
+    public function store(Request $request, Recipe $recipe)
+    {
+        $validated = $request->validate([
+            "version" => "required|integer",
+            "name" => "required|string",
+            "changelog" => "required|string",
+        ]);
+
+        $recipe->versions()->create([
+            "version" => $validated["version"],
+            "name" => $validated["name"],
+            "changelog" => $validated["changelog"],
+            "created_by" => auth()->id(),
+            "created_at" => now(),
+        ]);
+
+        return redirect()
+            ->route("recipes.recipe-versions.index", $recipe->id)
+            ->with("success", "Recipe version created successfully.");
     }
 
-    public function store(Request $request)
+    public function show(Recipe $recipe, RecipeVersion $recipeVersion)
     {
-        // }
-    }
-
-    public function show(RecipeVersion $recipeVersion)
-    {
-        // }
+        $recipeVersion->load([
+            "recipeIngredients.ingredient",
+            "recipeIngredients.unit",
+        ]);
+        return view("recipe-versions.show", compact("recipe", "recipeVersion"));
     }
 
     public function edit(RecipeVersion $recipeVersion)

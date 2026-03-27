@@ -1,42 +1,19 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <h1>Recipe Versions</h1>
-    <p>{{ $recipeVersions->count() }} records</p>
-    <table border="1" cellpadding="6" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Recipe</th>
-                <th>Version</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Yield</th>
-                <th>Unit</th>
-                <th>Committed By</th>
-                <th>Committed At</th>
-                <th>Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($recipeVersions as $version)
-                <a href="{{ route('recipes.recipe-versions.index', $version) }}"></a>
-                <tr>
-                    <td>{{ $version->id }}</td>
-                    <td>{{ $version->recipe?->name ?? '—' }}</td>
-                    <td>{{ $version->version }}</td>
-                    <td>{{ $version->name }}</td>
-                    <td>{{ $version->status }}</td>
-                    <td>{{ $version->yield ?? '—' }}</td>
-                    <td>{{ $version->unit?->unit_abbreviation ?? '—' }}</td>
-                    <td>{{ $version->commitedBy?->name ?? '—' }}</td>
-                    <td>{{ $version->commited_at ?? '—' }}</td>
-                    <td>{{ $version->created_at }}</td>
-                </tr>
+<x-layouts.app>
+    <div class="p-8">
+        <h1 class="text-3xl font-bold mb-4">{{ $recipe->name }} Versions</h1>
+            <div class="mb-4">
+                <a href="{{ route('recipes.create') }}" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-600 hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-600">Create new version</a>
+            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach ($recipeVersions as $version)
+                <x-ui.card>
+                        <h2 class="text-xl font-bold mb-2 text-gray-800">{{ $version->name }}</h2>
+                        <p class="text-slate-600 mb-2">{{ $version->name }}</p>
+                        <p class="text-slate-600 mb-2">{{ $version->version }}</p>
+                        <p class="text-slate-600 mb-2">{{ $version->description }}</p>
+                        <a href="{{ route('recipes.recipe-versions.show', [$recipe, $version]) }}" class="text-slate-600 hover:text-slate-100 font-medium">View version</a>
+                </x-ui.card>
             @endforeach
-        </tbody>
-    </table>
-    <br>
-    <a href="{{ url('/') }}">← Back</a>
-</body>
-</html>
+        </div>
+    </div>
+</x-layouts.app>

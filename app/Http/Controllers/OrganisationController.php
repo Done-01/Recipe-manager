@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use function Laravel\Prompts\autocomplete;
+use App\Models\Organisation;
 
 class OrganisationController extends Controller
 {

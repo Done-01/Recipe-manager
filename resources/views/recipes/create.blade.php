@@ -1,7 +1,7 @@
-<x-layout>
+<x-layouts.app>
     <div class="p-8">
-        <h1 class="text-3xl font-bold mb-4">Create Recipe</h1>
-        <form action="{{ route('recipes.store') }}" method="POST">
+        <h1 class="text-3xl font-bold mb-4">Create Recipe Version</h1>
+        <form action="{{ route('recipes.recipe-versions.store', $recipe) }}" method="POST">
             @csrf
             <div class="bg-white rounded-lg shadow-md p-4">
                 <div class="mb-4">
@@ -22,4 +22,4 @@
             </div>
         </form>
     </div>
-</x-layout>
+</x-layouts.app>

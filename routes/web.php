@@ -80,3 +80,6 @@ Route::post("/register", [
     \App\Http\Controllers\RegisterController::class,
     "store",
 ]);
+Route::get("/test", function () {
+    return view("test");
+});

@@ -1,4 +1,4 @@
-<x-layout>
+<x-layouts.app>
     <div class="text-center">
         <h1>Welcome!</h1>
         @if (auth()->check())
@@ -10,4 +10,4 @@
                 <p>Selected organisation: {{ auth()->user()->currentOrganisation()->organisation_name ?? 'No organisation selected' }}</p>
             @endif
     </div>
-</x-layout>
+</x-layouts.app>
