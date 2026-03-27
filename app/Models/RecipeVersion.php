@@ -90,6 +90,11 @@ class RecipeVersion extends Model
             ]);
     }
 
+    public function recipeIngredients(): HasMany
+    {
+        return $this->hasMany(RecipeIngredient::class, "recipe_version_id");
+    }
+
     public function productionRuns(): HasMany
     {
         return $this->hasMany(ProductionRun::class, "recipe_version_id");

@@ -45,6 +45,10 @@ Route::middleware(["auth", "setup.org"])->group(function () {
         return view("dashboard");
     });
     Route::resource("recipes", \App\Http\Controllers\RecipeController::class);
+    Route::post("recipes/{recipe}/recipe-versions/{recipeVersion}/ingredients", [
+        \App\Http\Controllers\RecipeVersionController::class,
+        "storeIngredients",
+    ])->name("recipes.recipe-versions.ingredients.store");
     Route::resource(
         "recipes.recipe-versions",
         \App\Http\Controllers\RecipeVersionController::class,

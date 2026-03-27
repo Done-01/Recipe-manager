@@ -23,6 +23,7 @@
                             <th class="px-4 py-3 font-medium">Committed By</th>
                             <th class="px-4 py-3 font-medium">Committed At</th>
                             <th class="px-4 py-3 font-medium">Created At</th>
+                            <th class="px-4 py-3 font-medium">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 text-slate-700">
@@ -37,6 +38,11 @@
                                 <td class="px-4 py-3">{{ $version->commitedBy?->name ?? '-' }}</td>
                                 <td class="px-4 py-3">{{ $version->commited_at ?? '-' }}</td>
                                 <td class="px-4 py-3">{{ $version->created_at }}</td>
+                                <td class="px-4 py-3">
+                                    <a href="{{ route('recipes.recipe-versions.show', ['recipe' => $recipe, 'recipe_version' => $version]) }}" class="font-medium text-teal-600 hover:text-teal-700">
+                                        Open Version
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
