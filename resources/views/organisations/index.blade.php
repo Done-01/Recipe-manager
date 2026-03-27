@@ -1,7 +1,7 @@
 <x-layouts.app>
         <x-ui.card>
             <x-typography.section-title>Organisations</x-typogrophy.section-title>
-            <div class="mt-4 flex items-center justify-center">
+            <div class="mt-4 flex flex-col items-center">
             @foreach ($organisations as $organisation)
                 <form action="{{ route('organisations.select') }}" method="post">
                     @csrf
