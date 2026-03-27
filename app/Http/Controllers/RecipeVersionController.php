@@ -49,9 +49,13 @@ class RecipeVersionController extends Controller
             ->with("success", "Recipe version created successfully.");
     }
 
-    public function show(RecipeVersion $recipeVersion)
+    public function show(Recipe $recipe, RecipeVersion $recipeVersion)
     {
-        // }
+        $recipeVersion->load([
+            "recipeIngredients.ingredient",
+            "recipeIngredients.unit",
+        ]);
+        return view("recipe-versions.show", compact("recipe", "recipeVersion"));
     }
 
     public function edit(RecipeVersion $recipeVersion)
