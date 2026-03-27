@@ -70,154 +70,85 @@
 
             <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
                 <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">Add Ingredients</p>
-                <h2 class="mt-3 text-2xl font-semibold text-slate-900">Add multiple rows</h2>
-                <p class="mt-2 text-sm text-slate-600">Use the button below to add as many ingredients as you need before saving.</p>
+                <h2 class="mt-3 text-2xl font-semibold text-slate-900">Attach ingredient to version</h2>
+                <p class="mt-2 text-sm text-slate-600">If the ingredient is missing from the dropdown, create it first using the form below.</p>
 
                 <form action="{{ route('recipes.recipe-versions.ingredients.store', ['recipe' => $recipe, 'recipeVersion' => $recipeVersion]) }}" method="POST" class="mt-6 space-y-4">
                     @csrf
 
-                    <div id="ingredient-rows" class="space-y-4">
-                        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                            <div class="grid gap-4">
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                        <div class="grid gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700">Ingredient</label>
+                                <select name="ingredients[0][ingredient_id]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
+                                    <option value="">Select ingredient</option>
+                                    @foreach ($ingredients as $ingredient)
+                                        <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700">Specification</label>
+                                <select name="ingredients[0][ingredient_specification_id]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
+                                    <option value="">No specification</option>
+                                    @foreach ($ingredientSpecifications as $ingredientSpecification)
+                                        <option value="{{ $ingredientSpecification->id }}">
+                                            {{ $ingredientSpecification->ingredient?->name }} - {{ $ingredientSpecification->supplier?->name ?? 'No supplier' }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="grid gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700">Ingredient</label>
-                                    <select name="ingredients[0][ingredient_id]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                                        <option value="">Select ingredient</option>
-                                        @foreach ($ingredients as $ingredient)
-                                            <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
+                                    <label class="block text-sm font-medium text-slate-700">Quantity</label>
+                                    <input type="number" step="0.0001" name="ingredients[0][quantity]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700">Unit</label>
+                                    <select name="ingredients[0][unit_id]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
+                                        <option value="">Select unit</option>
+                                        @foreach ($units as $unit)
+                                            <option value="{{ $unit->id }}">{{ $unit->unit_name }} ({{ $unit->unit_abbreviation }})</option>
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
 
+                            <div class="grid gap-4 sm:grid-cols-2">
                                 <div>
-                                    <label class="block text-sm font-medium text-slate-700">Specification</label>
-                                    <select name="ingredients[0][ingredient_specification_id]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                                        <option value="">No specification</option>
-                                        @foreach ($ingredientSpecifications as $ingredientSpecification)
-                                            <option value="{{ $ingredientSpecification->id }}">
-                                                {{ $ingredientSpecification->ingredient?->name }} - {{ $ingredientSpecification->supplier?->name ?? 'No supplier' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <label class="block text-sm font-medium text-slate-700">Waste Percentage</label>
+                                    <input type="number" step="0.01" name="ingredients[0][waste_percentage]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
                                 </div>
-
-                                <div class="grid gap-4 sm:grid-cols-2">
-                                    <div>
-                                        <label class="block text-sm font-medium text-slate-700">Quantity</label>
-                                        <input type="number" step="0.0001" name="ingredients[0][quantity]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-slate-700">Unit</label>
-                                        <select name="ingredients[0][unit_id]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                                            <option value="">Select unit</option>
-                                            @foreach ($units as $unit)
-                                                <option value="{{ $unit->id }}">{{ $unit->unit_name }} ({{ $unit->unit_abbreviation }})</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="grid gap-4 sm:grid-cols-2">
-                                    <div>
-                                        <label class="block text-sm font-medium text-slate-700">Waste Percentage</label>
-                                        <input type="number" step="0.01" name="ingredients[0][waste_percentage]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-slate-700">Notes</label>
-                                        <input type="text" name="ingredients[0][notes]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                                    </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700">Notes</label>
+                                    <input type="text" name="ingredients[0][notes]" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col gap-3 sm:flex-row">
-                        <button type="button" id="add-ingredient-row" class="flex w-full justify-center rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-medium text-teal-700 transition hover:bg-teal-100">Add Another Ingredient</button>
-                        <button type="submit" class="flex w-full justify-center rounded-2xl bg-teal-500 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-teal-600">Save Ingredients</button>
-                    </div>
+                    <button type="submit" class="flex w-full justify-center rounded-2xl bg-teal-500 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-teal-600">Save Ingredient</button>
                 </form>
+                <div class="mt-6 border-t border-slate-200 pt-6">
+                    <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">Need a new one?</p>
+                    <h3 class="mt-3 text-xl font-semibold text-slate-900">Create ingredient first</h3>
+                    <p class="mt-2 text-sm text-slate-600">Create the ingredient here, then use the dropdown above after the page reloads.</p>
+
+                    <form action="{{ route('ingredients.store') }}" method="POST" class="mt-5 space-y-4">
+                        @csrf
+                        <input type="hidden" name="redirect_to" value="{{ request()->fullUrl() }}">
+
+                        <div>
+                            <label for="quick-create-ingredient-name" class="block text-sm font-medium text-slate-700">Ingredient Name</label>
+                            <input id="quick-create-ingredient-name" type="text" name="name" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white">
+                        </div>
+
+                        <button type="submit" class="flex w-full justify-center rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-medium text-teal-700 transition hover:bg-teal-100">Create Ingredient</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
-    <template id="ingredient-row-template">
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <div class="grid gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Ingredient</label>
-                    <select data-name="ingredient_id" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                        <option value="">Select ingredient</option>
-                        @foreach ($ingredients as $ingredient)
-                            <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-slate-700">Specification</label>
-                    <select data-name="ingredient_specification_id" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                        <option value="">No specification</option>
-                        @foreach ($ingredientSpecifications as $ingredientSpecification)
-                            <option value="{{ $ingredientSpecification->id }}">
-                                {{ $ingredientSpecification->ingredient?->name }} - {{ $ingredientSpecification->supplier?->name ?? 'No supplier' }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700">Quantity</label>
-                        <input type="number" step="0.0001" data-name="quantity" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700">Unit</label>
-                        <select data-name="unit_id" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                            <option value="">Select unit</option>
-                            @foreach ($units as $unit)
-                                <option value="{{ $unit->id }}">{{ $unit->unit_name }} ({{ $unit->unit_abbreviation }})</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700">Waste Percentage</label>
-                        <input type="number" step="0.01" data-name="waste_percentage" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700">Notes</label>
-                        <input type="text" data-name="notes" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400">
-                    </div>
-                </div>
-
-                <button type="button" class="remove-ingredient-row self-start text-sm font-medium text-rose-600 hover:text-rose-700">Remove Row</button>
-            </div>
-        </div>
-    </template>
-
-    <script>
-        const ingredientRows = document.getElementById('ingredient-rows');
-        const addIngredientRowButton = document.getElementById('add-ingredient-row');
-        const ingredientRowTemplate = document.getElementById('ingredient-row-template');
-
-        let ingredientRowIndex = 1;
-
-        addIngredientRowButton.addEventListener('click', () => {
-            const fragment = ingredientRowTemplate.content.cloneNode(true);
-            const row = fragment.querySelector('div');
-
-            row.querySelectorAll('[data-name]').forEach((field) => {
-                field.name = `ingredients[${ingredientRowIndex}][${field.dataset.name}]`;
-            });
-
-            row.querySelector('.remove-ingredient-row').addEventListener('click', () => {
-                row.remove();
-            });
-
-            ingredientRows.appendChild(fragment);
-            ingredientRowIndex += 1;
-        });
-    </script>
 </x-layout>
