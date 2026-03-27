@@ -6,7 +6,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="text-gray-900 font-sans flex flex-col min-h-screen w-full">
-    <nav class="bg-purple-800 p-4 text-white flex justify-between items-center w-full">
+    <nav class="bg-slate-800 p-4 text-white flex justify-between items-center w-full">
         <div class="flex space-x-4 items-top">
             @if (session('active_organisation'))
                 <x-ui.nav-link href="/dashboard">Dashboard</x-ui.nav-link>
@@ -23,7 +23,7 @@
                 @endif
         </div>
     </nav>
-    <main class="w-full mx-auto">
+    <main class="min-h-screen w-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         {{ $slot }}
     </main>
 </body>
