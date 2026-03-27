@@ -1,6 +1,6 @@
 <x-layouts.app>
         <x-ui.card>
-            <x-typography.section-title>Organisations</x-typogrophy.section-title>
+            <x-typography.section-title>Organisations</x-typography.section-title>
             <div class="mt-4 flex flex-col items-center">
                 @if (session('message'))
                     <div class="mt-4 text-center text-sm text-green-600">
