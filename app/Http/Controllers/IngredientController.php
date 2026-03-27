@@ -25,13 +25,20 @@ class IngredientController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'redirect_to' => ['nullable', 'string'],
         ]);
 
-        // change this when authorised properly
-        $validated['organisation_id'] = 1;
-        $validated['created_by'] = 1;
+        $redirectTo = $validated['redirect_to'] ?? null;
+        unset($validated['redirect_to']);
+
+        $validated['organisation_id'] = auth()->user()->currentOrganisation()->id;
+        $validated['created_by'] = auth()->id();
 
         Ingredient::create($validated);
+
+        if ($redirectTo) {
+            return redirect($redirectTo)->with('success', 'Ingredient created successfully.');
+        }
 
         return redirect()
             ->route('ingredients.index')

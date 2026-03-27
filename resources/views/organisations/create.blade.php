@@ -1,24 +1,22 @@
 <x-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-lg shadow-md">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Create Organisation
-            </h2>
+    <div class="mx-auto max-w-xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">Organisation</p>
+        <h2 class="mt-3 text-3xl font-semibold text-slate-900">Create organisation</h2>
+        <p class="mt-2 text-sm text-slate-600">Add a workspace for your recipes, ingredients, and nutrition data.</p>
             <form class="mt-8 space-y-6" action="{{ route('organisations.store') }}" method="POST">
                 @csrf
-                <div class="rounded-md shadow-sm -space-y-px">
+                <div>
                     <div>
-                        <label for="name" class="sr-only">Name</label>
-                        <input id="name" name="name" type="text" autocomplete="name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Organisation Name">
+                        <label for="name" class="block text-sm font-medium text-slate-700">Organisation name</label>
+                        <input id="name" name="name" type="text" autocomplete="name" required class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white" placeholder="Organisation Name">
                     </div>
                 </div>
 
                 <div>
-                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                    <button type="submit" class="flex w-full justify-center rounded-2xl bg-teal-500 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-teal-600">
                         Create
                     </button>
                 </div>
             </form>
         </div>
-    </div>
 </x-layout>

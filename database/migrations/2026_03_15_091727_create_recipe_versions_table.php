@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string("version");
             $table->string("name");
             $table->text("description")->nullable();
-            $table->enum("status", ["current", "draft"]); // might need removing
+            $table->enum("status", ["current", "draft"])->default("draft"); // might need removing
             $table->integer("count")->nullable();
             $table->decimal("yield")->nullable();
             $table->foreignId("unit_id")->nullable()->constrained("units");

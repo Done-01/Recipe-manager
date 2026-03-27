@@ -1,23 +1,16 @@
 <x-layout>
-    <div class="p-8">
-        <h1 class="text-3xl font-bold mb-4">Create Recipe</h1>
+    <div class="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
+        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">Recipes</p>
+        <h1 class="mt-3 text-3xl font-semibold text-slate-900">Create recipe</h1>
         <form action="{{ route('recipes.store') }}" method="POST">
             @csrf
-            <div class="bg-white rounded-lg shadow-md p-4">
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" name="name" id="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500">
-                </div>
-                <div class="mb-4">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea name="description" id="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="instructions" class="block text-sm font-medium text-gray-700">Instructions</label>
-                    <textarea name="instructions" id="instructions" rows="6" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500"></textarea>
+            <div class="mt-8 space-y-5">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
+                    <input type="text" name="name" id="name" class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white">
                 </div>
                 <div class="mt-6">
-                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Create Recipe</button>
+                    <button type="submit" class="flex w-full justify-center rounded-2xl bg-teal-500 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-teal-600">Create Recipe</button>
                 </div>
             </div>
         </form>

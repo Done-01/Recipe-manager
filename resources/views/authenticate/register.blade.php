@@ -1,39 +1,38 @@
 <x-guest>
     <x-slot:title>Register</x-slot:title>
 
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-lg shadow-md">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                Create a new account
-            </h2>
-            <form class="mt-8 space-y-6" method="POST" action="{{ route('register') }}">
+    <div class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-10 shadow-sm">
+        <div class="text-center">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">STEVIE</p>
+            <h2 class="mt-3 text-3xl font-semibold text-slate-900">Create a new account</h2>
+        </div>
+            <form class="mt-8 space-y-5" method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
+                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white">
                 </div>
 
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-700">Email</label>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white">
                 </div>
 
-                <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <input id="password" type="password" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500">
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-700">Password</label>
+                    <input id="password" type="password" name="password" required class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white">
                 </div>
 
-                <div class="mb-4">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-purple-500 focus:border-purple-500">
+                <div>
+                    <label for="password_confirmation" class="block text-sm font-medium text-slate-700">Confirm Password</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation" required class="mt-2 block w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white">
                 </div>
 
-                <div class="mt-6 text-center">
-                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">Register</button>
-                    <p>Have an account? <a href="{{ route('login') }}" class="text-purple-600 hover:text-purple-700"> Login</a></p>
+                <div class="space-y-4 text-center">
+                    <button type="submit" class="flex w-full justify-center rounded-2xl bg-teal-500 px-4 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-teal-600">Register</button>
+                    <p class="text-sm text-slate-600">Have an account? <a href="{{ route('login') }}" class="font-medium text-teal-600 hover:text-teal-700">Login</a></p>
                 </div>
             </form>
         </div>
-    </div>
 </x-guest>
